@@ -5,3 +5,9 @@
 ```shell
 $ npx knex --knexfile src/knexfile.ts migrate:make <name>
 ```
+
+## Run migrations
+
+```shell
+$ npx knex --knexfile src/knexfile.ts migrate:latest
+```
