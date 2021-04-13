@@ -1,5 +1,6 @@
 import helmet from 'helmet';
 import express from 'express';
+import cors from 'cors';
 import passport from 'passport';
 import session from 'express-session';
 import knexSessionStore from 'connect-session-knex';
@@ -15,6 +16,8 @@ const KnexSessionStore = knexSessionStore(session);
 app.set('trust proxy', env.TRUST_PROXY);
 
 app.use(helmet());
+// TODO: don't add cors for all routes
+app.use(cors());
 app.use(express.json());
 app.use(passport.initialize());
 app.use(
