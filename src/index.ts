@@ -1,11 +1,13 @@
 import helmet from 'helmet';
 import express from 'express';
+import passport from 'passport';
 import session from 'express-session';
 import knexSessionStore from 'connect-session-knex';
 import env from './env';
 import db from './db';
 
-import { auth } from './routes/api';
+import './passport';
+import routes from './routes';
 
 const app = express();
 const KnexSessionStore = knexSessionStore(session);
@@ -14,6 +16,7 @@ app.set('trust proxy', env.TRUST_PROXY);
 
 app.use(helmet());
 app.use(express.json());
+app.use(passport.initialize());
 app.use(
     session({
         secret: env.SESSION_SECRET,
@@ -28,12 +31,7 @@ app.use(
     }),
 );
 
-app.use(auth);
-
-// TODO: remove this
-app.get('/', (req, res) => {
-    res.send('Hello world!');
-});
+app.use(routes);
 
 app.listen(env.PORT, () => {
     console.log('Listening on port', env.PORT);
