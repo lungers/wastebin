@@ -15,7 +15,9 @@ export const login: Handler = async (req, res) => {
     );
 
     if (!passwordsMatch) {
-        throw new CustomError('Email or password is incorrect', 400);
+        return res.render('login', {
+            error: 'Email or password is incorrect',
+        });
     }
 
     req.session.userId = req.user.id;

@@ -1,6 +1,6 @@
+import path from 'path';
 import helmet from 'helmet';
 import express from 'express';
-import cors from 'cors';
 import passport from 'passport';
 import session from 'express-session';
 import knexSessionStore from 'connect-session-knex';
@@ -14,11 +14,12 @@ const app = express();
 const KnexSessionStore = knexSessionStore(session);
 
 app.set('trust proxy', env.TRUST_PROXY);
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 
 app.use(helmet());
-// TODO: don't add cors for all routes
-app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(passport.initialize());
 app.use(
     session({

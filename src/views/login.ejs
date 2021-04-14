@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include('partials/head', { title: 'login' }) %>
+    </head>
+    <body>
+        <% if (locals.error) { %>
+        <h1><%= error %></h1>
+        <% } %>
+
+        <form action="/login" method="post">
+            <input type="email" name="email" placeholder="Email" />
+            <input type="password" name="password" placeholder="Password" />
+            <button>Login</button>
+        </form>
+    </body>
+</html>

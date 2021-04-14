@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include('partials/head', { title: paste.hash }) %>
+    </head>
+    <body>
+        <pre><%= paste.content %></pre>
+
+        <!-- <pre><%= JSON.stringify(paste, null, 2) %></pre> -->
+    </body>
+</html>
