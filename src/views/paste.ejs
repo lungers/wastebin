@@ -2,10 +2,17 @@
 <html lang="en">
     <head>
         <%- include('partials/head', { title: paste.hash }) %>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="/markdown.css" />
     </head>
     <body>
+        <% if (locals.markdown) { %>
+        <div class="markdown"><%- markdown %></div>
+        <% } else { %>
         <pre><%= paste.content %></pre>
-
-        <!-- <pre><%= JSON.stringify(paste, null, 2) %></pre> -->
+        <% } %>
     </body>
 </html>

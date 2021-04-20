@@ -1,6 +1,8 @@
 import { Handler } from 'express';
 import { Pastes } from '../db';
 import generateSlug from '../utils/generate-slug';
+import marked from 'marked';
+import xss from 'xss';
 import isUrl from '../utils/is-url';
 
 export const index: Handler = (req, res) => {
@@ -17,7 +19,23 @@ export const get = (redirectUrls = true): Handler => async (req, res) => {
         return res.redirect(paste.content);
     }
 
-    res.render('paste', { paste });
+    switch (ext) {
+        case undefined:
+            // TODO: auto-detect language
+            res.redirect(`/${hash}.txt`);
+            break;
+
+        case 'md':
+            res.render('paste', {
+                paste,
+                markdown: marked(xss(paste.content)),
+            });
+            break;
+
+        default:
+            res.render('paste', { paste });
+            break;
+    }
 };
 
 export const raw: Handler = async (req, res) => {

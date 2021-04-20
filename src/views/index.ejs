@@ -2,16 +2,53 @@
 <html lang="en">
     <head>
         <%- include('partials/head') %>
+        <meta content="#262626" name="theme-color" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            body {
+                background-color: #262626;
+                font-family: 'Source Code Pro', monospace;
+            }
+
+            .logo {
+                font-weight: 700;
+                color: #ffffff;
+                text-decoration: none;
+            }
+
+            .logo-red {
+                color: #ee4c4c;
+            }
+
+            .content {
+                background: transparent;
+                color: #ffffff;
+            }
+        </style>
     </head>
     <body>
+        <header>
+            <a href="/" class="logo">
+                <h1>waste<span class="logo-red">bin</span></h1>
+            </a>
+        </header>
+
         <form action="/new" method="post">
             <textarea
                 name="content"
-                id="content"
+                class="content"
+                spellcheck="false"
+                tabindex="1"
+                autofocus
+                placeholder="some code here"
                 cols="30"
                 rows="10"
             ></textarea>
-            <button>Submit</button>
+            <button tabindex="2">Submit</button>
         </form>
     </body>
 </html>
