@@ -41,6 +41,7 @@
     "express-session": "^1.17.1",
     "express-validator": "^6.10.0",
     "helmet": "^4.4.1",
+    "highlight.js": "^11.0.0-alpha0",
     "marked": "^2.0.3",
     "mysql": "^2.18.1",
     "passport": "^0.4.1",

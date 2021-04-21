@@ -6,13 +6,15 @@
             href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap"
             rel="stylesheet"
         />
-        <link rel="stylesheet" href="/markdown.css" />
-    </head>
-    <body>
         <% if (locals.markdown) { %>
-        <div class="markdown"><%- markdown %></div>
+        <link rel="stylesheet" href="/s/markdown.css" />
         <% } else { %>
-        <pre><%= paste.content %></pre>
+        <link rel="stylesheet" href="/s/hljs.css" />
+        <% } %>
+    </head>
+    <body class="<%= locals.markdown ? 'markdown-body' : 'hljs' %>">
+        <% if (locals.markdown) { %><%- content %> <% } else { %>
+        <pre><code class="lang-<%= language %>"><%- content %></code></pre>
         <% } %>
     </body>
 </html>

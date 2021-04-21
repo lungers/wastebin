@@ -3,7 +3,9 @@ import { Pastes } from '../db';
 import generateSlug from '../utils/generate-slug';
 import marked from 'marked';
 import xss from 'xss';
+import hljs from 'highlight.js';
 import isUrl from '../utils/is-url';
+import { getExtFromLang, getLangFromExt } from '../utils/languages';
 
 export const index: Handler = (req, res) => {
     res.render('index');
@@ -20,21 +22,34 @@ export const get = (redirectUrls = true): Handler => async (req, res) => {
     }
 
     switch (ext) {
-        case undefined:
-            // TODO: auto-detect language
-            res.redirect(`/${hash}.txt`);
+        case undefined: {
+            const highlightResult = hljs.highlightAuto(paste.content);
+            const detectedExt = getExtFromLang(highlightResult.language);
+
+            res.redirect(`/${hash}.${detectedExt.extension}`);
             break;
+        }
 
         case 'md':
             res.render('paste', {
                 paste,
-                markdown: marked(xss(paste.content)),
+                content: marked(xss(paste.content)),
+                markdown: true,
             });
             break;
 
-        default:
-            res.render('paste', { paste });
+        default: {
+            const { language } = getLangFromExt(ext);
+            console.log({ language });
+            const highlightResult = hljs.highlight(paste.content, { language });
+
+            res.render('paste', {
+                paste,
+                language,
+                content: highlightResult.value,
+            });
             break;
+        }
     }
 };
 
