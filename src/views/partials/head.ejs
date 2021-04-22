@@ -1,7 +1,13 @@
+<% const _title = locals.title ? `wastebin - ${title}` : 'wastebin'; %>
+<% const _description = locals.paste ? paste.content.slice(0, 100) : 'The wasteful pastebin and url-shortener'; %>
+
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<% if (locals.title) { %>
-<title>wastebin - <%= title %></title>
-<% } else { %>
-<title>wastebin</title>
-<% } %>
+<meta content="#0d1117" name="theme-color" />
+<title><%= _title %></title>
+<meta property="og:title" content="<%= _title %>" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="wastebin" />
+<meta name="keywords" content="pastebin,code,url shortener" />
+<meta name="description" content="<%= _description %>" />
+<meta property="og:description" content="<%= _description %>" />
