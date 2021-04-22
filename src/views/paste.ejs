@@ -2,6 +2,7 @@
 <html lang="en">
     <head>
         <%- include('partials/head', { title: paste.hash }) %>
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link
             href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap"
             rel="stylesheet"
@@ -14,7 +15,10 @@
     </head>
     <body class="<%= locals.markdown ? 'markdown-body' : 'hljs' %>">
         <% if (locals.markdown) { %><%- content %> <% } else { %>
-        <pre><code class="lang-<%= language %>"><%- content %></code></pre>
+        <% if (locals.lineNumbers) { %>
+        <%- lineNumbers %>
+        <% } %>
+        <pre><code class="lang-<%= language.names[0] %>"><%- content %></code></pre>
         <% } %>
     </body>
 </html>

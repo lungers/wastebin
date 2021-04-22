@@ -5,6 +5,7 @@ import marked from 'marked';
 import xss from 'xss';
 import hljs from 'highlight.js';
 import isUrl from '../utils/is-url';
+import addLineNumbers from '../utils/line-numbers';
 import { getExtFromLang, getLangFromExt } from '../utils/languages';
 
 export const index: Handler = (req, res) => {
@@ -39,14 +40,17 @@ export const get = (redirectUrls = true): Handler => async (req, res) => {
             break;
 
         default: {
-            const { language } = getLangFromExt(ext);
-            console.log({ language });
-            const highlightResult = hljs.highlight(paste.content, { language });
+            const language = getLangFromExt(ext);
+            const highlightResult = hljs.highlight(paste.content, {
+                language: language.names[0],
+            });
+            const lineNumbers = addLineNumbers(highlightResult.value);
 
             res.render('paste', {
                 paste,
                 language,
                 content: highlightResult.value,
+                lineNumbers,
             });
             break;
         }

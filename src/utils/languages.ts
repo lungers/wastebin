@@ -1,33 +1,32 @@
 export interface Language {
     extension: string;
-    language: string;
+    names: string[];
 }
 
 const plainTextLang: Language = {
     extension: 'txt',
-    language: 'plaintext',
+    names: ['plaintext'],
 };
 
 const [extsByLang, langsByExt] = (() => {
     // TODO: get a proper list of languages
     const languages: Language[] = [
-        { extension: 'js', language: 'javascript' },
-        { extension: 'js', language: 'coffeescript' },
-        { extension: 'md', language: 'markdown' },
+        { extension: 'html', names: ['html'] },
+        { extension: 'js', names: ['javascript', 'coffeescript'] },
+        { extension: 'py', names: ['python'] },
+        { extension: 'java', names: ['java'] },
+        { extension: 'cs', names: ['csharp'] },
+        { extension: 'json', names: ['json'] },
+        { extension: 'md', names: ['markdown'] },
         plainTextLang,
     ];
 
     return [
-        new Map(languages.map(language => [language.language, language])),
+        new Map(languages.map(language => [language.names[0], language])),
         new Map(
-            languages
-                .filter(
-                    (language, index) =>
-                        languages.findIndex(
-                            lang => lang.extension === language.extension,
-                        ) === index,
-                )
-                .map(language => [language.extension, language]),
+            languages.flatMap(language =>
+                language.names.map(name => [language.extension, language]),
+            ),
         ),
     ];
 })();
