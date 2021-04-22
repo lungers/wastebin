@@ -5,13 +5,17 @@ const addLineNumbers = (content: string) => {
         lines.pop();
     }
 
-    const html = [];
+    const modifiedLines: string[] = [];
+    const numbers = [];
 
     for (let i = 0; i < lines.length; i++) {
         const line = lines[i].length > 0 ? lines[i] : ' ';
         const lineNumber = i + 1;
-        html.push(
-            `<tr id="L${lineNumber}">`,
+
+        modifiedLines.push(`<div id="LC${lineNumber}" class="line">`, line, `</div>`);
+
+        numbers.push(
+            `<tr id="L${lineNumber}" class="hl-r">`,
             `<td class="hljs-ln-numbers">`,
             `<a href="#L${lineNumber}" class="hljs-ln-n" data-line-number="${lineNumber}">${lineNumber}</a>`,
             `</td>`,
@@ -19,7 +23,10 @@ const addLineNumbers = (content: string) => {
         );
     }
 
-    return `<table class="hljs-ln">${html.join('')}</table>`;
+    return {
+        content: modifiedLines.join(''),
+        lineNumbers: `<table class="hljs-ln">${numbers.join('')}</table>`,
+    };
 };
 
 export default addLineNumbers;

@@ -1,4 +1,5 @@
 import { Handler } from 'express';
+import cheerio from 'cheerio';
 import { Pastes } from '../db';
 import generateSlug from '../utils/generate-slug';
 import marked from 'marked';
@@ -44,12 +45,36 @@ export const get = (redirectUrls = true): Handler => async (req, res) => {
             const highlightResult = hljs.highlight(paste.content, {
                 language: language.names[0],
             });
-            const lineNumbers = addLineNumbers(highlightResult.value);
+
+            const $ = cheerio.load(highlightResult.value);
+            $('body')
+                .children()
+                .each(function (_, child) {
+                    const $child = $(child);
+                    if (
+                        $child.children().length === 0 &&
+                        $child.text().includes('\n')
+                    ) {
+                        const text = $child.text();
+                        text.split('\n').forEach((line, index, lines) => {
+                            const $clone = $child.clone();
+                            $clone.text(
+                                line + (index !== lines.length - 1 ? '\n' : ''),
+                            );
+                            $clone.insertBefore($child);
+                        });
+                        $child.remove();
+                    }
+                });
+
+            const { content, lineNumbers } = addLineNumbers(
+                $('body').html() || highlightResult.value,
+            );
 
             res.render('paste', {
                 paste,
                 language,
-                content: highlightResult.value,
+                content,
                 lineNumbers,
             });
             break;

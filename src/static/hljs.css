@@ -1,4 +1,4 @@
-*{margin:0;padding:0;box-sizing:border-box}pre{margin-left:1.5rem}code{font-family:'Source Code Pro',monospace;font-size:12px;line-height:20px}::selection{background:#3e4451}:target .hljs-ln-n{--opacity:0.6}
+*{margin:0;padding:0;box-sizing:border-box}pre{margin-left:.5rem;width:100%}code{font-family:'Source Code Pro',monospace;font-size:12px;line-height:20px}.line{padding-left:1rem}::selection{background:#3e4451}:target .hljs-ln-n{--opacity:0.6}:target{background:rgba(210,153,34,.15);box-shadow:inset 2px 0 0 #e3b341}:target:not(.line){box-shadow:2px 0 0 #e3b341}
 /*! highlight.js theme */
 .hljs{display:flex;background:#0d1117;color:#c9d1d9;padding:1.25rem 1rem}.hljs-keyword,.hljs-operator,.hljs-type{color:#ff7b72}.hljs-built_in,.hljs-title{color:#d2a8ff}.hljs-comment,.hljs-doctag{color:#8b949e}.hljs-attr,.hljs-literal,.hljs-number,.hljs-property{color:#79c0ff}.hljs-string{color:#a5d6ff}
 /*! highlight.js line numbers styles */

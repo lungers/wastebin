@@ -20,6 +20,7 @@
   "homepage": "https://github.com/lungers/wastebin#readme",
   "devDependencies": {
     "@types/bcrypt": "^3.0.1",
+    "@types/cheerio": "^0.22.28",
     "@types/cors": "^2.8.10",
     "@types/express": "^4.17.11",
     "@types/marked": "^2.0.2",
@@ -31,6 +32,7 @@
   "dependencies": {
     "@types/express-session": "^1.17.3",
     "bcrypt": "^5.0.1",
+    "cheerio": "^1.0.0-rc.6",
     "connect-session-knex": "^2.0.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
