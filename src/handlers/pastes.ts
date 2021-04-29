@@ -27,8 +27,9 @@ export const get = (redirectUrls = true): Handler => async (req, res) => {
         case undefined: {
             const highlightResult = hljs.highlightAuto(paste.content);
             const detectedExt = getExtFromLang(highlightResult.language);
+            let redirect = `/${hash}.${detectedExt.extension}`;
 
-            res.redirect(`/${hash}.${detectedExt.extension}`);
+            res.redirect(redirectUrls ? redirect : `/v${redirect}`);
             break;
         }
 
