@@ -6,6 +6,7 @@ import session from 'express-session';
 import knexSessionStore from 'connect-session-knex';
 import env from './env';
 import db from './db';
+import { CustomError } from './utils/custom-error';
 
 import './passport';
 import routes from './routes';
@@ -37,6 +38,11 @@ app.use(
 );
 
 app.use(routes);
+
+app.use((error: Error | CustomError, req: any, res: any, next: any) => {
+    console.log(error);
+    res.status('statusCode' in error ? error.statusCode : 500).end(error.message);
+});
 
 app.listen(env.PORT, () => {
     console.log('Listening on port', env.PORT);
