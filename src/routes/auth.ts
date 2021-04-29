@@ -12,6 +12,12 @@ router.get('/login', ensureLoggedIn(false, '/'), (req, res) => {
     res.render('login');
 });
 
+router.get('/logout', (req, res) => {
+    req.session.destroy(() => {
+        res.redirect('/login');
+    });
+});
+
 router.post(
     '/login',
     ensureLoggedIn(false, '/'),

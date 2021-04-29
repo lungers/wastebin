@@ -9,7 +9,7 @@ export const editPasteValidator = [
             const [realHash, ext] = hash.split('.', 2);
             const paste = await Pastes().where('hash', realHash).first();
 
-            if (!paste || paste.user_id !== req.user?.userId) {
+            if (!paste || !req.session || paste.user_id !== req.session.userId) {
                 return Promise.reject();
             }
         })

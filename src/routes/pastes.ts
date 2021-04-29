@@ -3,6 +3,7 @@ import { Router } from 'express';
 import cors from 'cors';
 
 import * as pastes from '../handlers/pastes';
+import { verify } from '../utils/verify';
 import ensureLoggedIn from '../utils/ensure-logged-in';
 import { newPastesValidator, editPasteValidator } from '../validators/pastes';
 
@@ -16,6 +17,7 @@ router.post(
     '/new',
     ensureLoggedIn(true, '/login'),
     newPastesValidator,
+    asyncHandler(verify),
     asyncHandler(pastes.new_),
 );
 
@@ -23,12 +25,14 @@ router.get(
     '/e/:hash',
     ensureLoggedIn(true, '/login'),
     editPasteValidator,
+    asyncHandler(verify),
     asyncHandler(pastes.renderEdit),
 );
 router.post(
     '/edit/:hash',
     ensureLoggedIn(true, '/login'),
     editPasteValidator,
+    asyncHandler(verify),
     asyncHandler(pastes.edit),
 );
 
