@@ -112,3 +112,32 @@ export const new_: Handler = async (req, res) => {
 
     res.redirect(`/${hash}`);
 };
+
+export const renderEdit: Handler = async (req, res) => {
+    const [hash, ext] = req.params.hash.split('.', 2);
+    const paste = await Pastes().where('hash', hash).first();
+
+    res.render('edit', {
+        paste,
+    });
+};
+
+export const edit: Handler = async (req, res) => {
+    const { hash } = req.params;
+    // const paste = await Pastes().where({ hash }).first();
+
+    const is_url = isUrl(req.body.content);
+    // TODO: test with a different account
+
+    await Pastes().where({ hash }).update({
+        content: req.body.content,
+        is_url,
+        updated_at: new Date(),
+    });
+
+    if (is_url) {
+        return res.redirect(`/v/${hash}`);
+    }
+
+    res.redirect(`/${hash}`);
+};

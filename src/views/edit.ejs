@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include('partials/head', { title: `edit ${paste.hash}` }) %>
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="/s/edit.css" />
+    </head>
+    <body>
+        <header>
+            <a href="/" class="logo">
+                <h1>waste<span class="logo-red">bin</span></h1>
+            </a>
+            <button type="submit" form="edit" class="save" tabindex="2">Save</button>
+        </header>
+
+        <form action="/edit/<%= paste.hash %>" method="post" id="edit" class="content-container">
+            <textarea name="content" class="content" spellcheck="false" tabindex="1" autofocus="" placeholder="some code here" cols="30" rows="10"
+                ><%= paste.content %></textarea>
+        </form>
+    </body>
+</html>

@@ -4,7 +4,7 @@ import cors from 'cors';
 
 import * as pastes from '../handlers/pastes';
 import ensureLoggedIn from '../utils/ensure-logged-in';
-import { newPastesValidator } from '../validators/pastes';
+import { newPastesValidator, editPasteValidator } from '../validators/pastes';
 
 const router = Router();
 
@@ -17,6 +17,19 @@ router.post(
     ensureLoggedIn(true, '/login'),
     newPastesValidator,
     asyncHandler(pastes.new_),
+);
+
+router.get(
+    '/e/:hash',
+    ensureLoggedIn(true, '/login'),
+    editPasteValidator,
+    asyncHandler(pastes.renderEdit),
+);
+router.post(
+    '/edit/:hash',
+    ensureLoggedIn(true, '/login'),
+    editPasteValidator,
+    asyncHandler(pastes.edit),
 );
 
 export default router;
