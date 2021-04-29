@@ -8,36 +8,17 @@
             href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap"
             rel="stylesheet"
         />
-        <style>
-            body {
-                background-color: #262626;
-                font-family: 'Source Code Pro', monospace;
-            }
-
-            .logo {
-                font-weight: 700;
-                color: #ffffff;
-                text-decoration: none;
-            }
-
-            .logo-red {
-                color: #ee4c4c;
-            }
-
-            .content {
-                background: transparent;
-                color: #ffffff;
-            }
-        </style>
+        <link rel="stylesheet" href="/s/index.css" />
     </head>
     <body>
         <header>
             <a href="/" class="logo">
                 <h1>waste<span class="logo-red">bin</span></h1>
             </a>
+            <button type="submit" form="paste" class="save" tabindex="2">Save</button>
         </header>
 
-        <form action="/new" method="post">
+        <form action="/new" method="post" id="paste" class="content-container">
             <textarea
                 name="content"
                 class="content"
@@ -48,7 +29,6 @@
                 cols="30"
                 rows="10"
             ></textarea>
-            <button tabindex="2">Submit</button>
         </form>
     </body>
 </html>

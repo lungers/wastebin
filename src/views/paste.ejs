@@ -7,18 +7,27 @@
             href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap"
             rel="stylesheet"
         />
+        <link rel="stylesheet" href="/s/paste.css" />
         <% if (locals.markdown) { %>
         <link rel="stylesheet" href="/s/markdown.css" />
         <% } else { %>
         <link rel="stylesheet" href="/s/hljs.css" />
         <% } %>
     </head>
-    <body class="<%= locals.markdown ? 'markdown-body' : 'hljs' %>">
-        <% if (locals.markdown) { %><%- content %> <% } else { %>
-        <% if (locals.lineNumbers) { %>
-        <%- lineNumbers %>
-        <% } %>
-        <pre><code class="lang-<%= language.names[0] %>"><%- content %></code></pre>
-        <% } %>
+    <body>
+        <header>
+            <a href="/" class="logo">
+                <h1>waste<span class="logo-red">bin</span></h1>
+            </a>
+        </header>
+
+        <div class="<%= locals.markdown ? 'markdown-body' : 'hljs' %>">
+            <% if (locals.markdown) { %><%- content %> <% } else { %>
+            <% if (locals.lineNumbers) { %>
+            <%- lineNumbers %>
+            <% } %>
+            <pre><code class="lang-<%= language.names[0] %>"><%- content %></code></pre>
+            <% } %>
+        </div>
     </body>
 </html>
