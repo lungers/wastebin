@@ -1,4 +1,4 @@
-:root{--primary:#ee4c4c}*{padding:0;margin:0;box-sizing:border-box}body{margin:1rem 0}header{display:flex;justify-content:space-between;align-items:center;padding:1rem;font-family:'Source Code Pro',monospace}.logo{font-weight:700;color:#fff;text-decoration:none}.logo-red{color:var(--primary)}
+:root{--primary:#ee4c4c}*{padding:0;margin:0;box-sizing:border-box}body{margin:1rem 0}header{display:flex;justify-content:space-between;align-items:center;padding:1rem 0;margin-bottom:1rem;font-family:'Source Code Pro',monospace}.logo{font-weight:700;color:#fff;text-decoration:none}.logo-red{color:var(--primary)}
 /*! print */
 @media print{a[href]:after{content:' (' attr(href) ')'}abbr[title]:after{content:' (' attr(title) ')'}a[href^='#']:after,a[href^='javascript:']:after{content:''}}
 /*! bootstrap container */
