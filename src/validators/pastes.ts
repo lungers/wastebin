@@ -1,7 +1,9 @@
-import { param } from 'express-validator';
+import { body, param } from 'express-validator';
 import { Pastes } from '../db';
 
-export const newPastesValidator = [];
+export const newPastesValidator = [
+    body('content', 'Content is required').isLength({ min: 1 }),
+];
 
 export const editPasteValidator = [
     param('hash', 'Hash is required')
