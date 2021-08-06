@@ -12,12 +12,15 @@ const [extsByLang, langsByExt] = (() => {
     // TODO: get a proper list of languages
     const languages: Language[] = [
         { extension: 'html', names: ['html'] },
+        { extension: 'css', names: ['css'] },
         { extension: 'js', names: ['javascript', 'coffeescript'] },
         { extension: 'py', names: ['python'] },
         { extension: 'java', names: ['java'] },
         { extension: 'cs', names: ['csharp'] },
         { extension: 'json', names: ['json'] },
+        { extension: 'sh', names: ['bash'] },
         { extension: 'md', names: ['markdown'] },
+        { extension: 'diff', names: ['diff'] },
         plainTextLang,
     ];
 
