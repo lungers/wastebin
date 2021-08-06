@@ -100,7 +100,8 @@ export const get = (redirectUrls = true): Handler => async (req, res) => {
 };
 
 export const raw: Handler = async (req, res) => {
-    const paste = await Pastes().where('hash', req.params.hash).first();
+    const [hash, ext] = req.params.hash.split('.', 2);
+    const paste = await Pastes().where({ hash }).first();
 
     if (!paste) {
         res.status(404).send('404 Not Found');
