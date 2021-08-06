@@ -1,16 +1,32 @@
-import { Handler } from 'express';
+import { Request, Response, Handler } from 'express';
 import cheerio from 'cheerio';
 import { Pastes } from '../db';
 import generateSlug from '../utils/generate-slug';
 import marked from 'marked';
 import xss from 'xss';
 import hljs from 'highlight.js';
+import { minify } from 'html-minifier';
 import isUrl from '../utils/is-url';
 import addLineNumbers from '../utils/line-numbers';
 import { getExtFromLang, getLangFromExt } from '../utils/languages';
 
 export const index: Handler = (req, res) => {
     res.render('index');
+};
+
+const renderPaste = (req: Request, res: Response, data: object) => {
+    req.app.render('paste', data, (error, html) => {
+        if (error) {
+            console.error(error);
+            throw error;
+        }
+
+        const minifiedHtml = minify(html, {
+            collapseWhitespace: true,
+        });
+
+        res.send(minifiedHtml);
+    });
 };
 
 export const get = (redirectUrls = true): Handler => async (req, res) => {
@@ -72,7 +88,7 @@ export const get = (redirectUrls = true): Handler => async (req, res) => {
                 $('body').html() || highlightResult.value,
             );
 
-            res.render('paste', {
+            renderPaste(req, res, {
                 paste,
                 language,
                 content,
