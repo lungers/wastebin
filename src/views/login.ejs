@@ -11,24 +11,35 @@
     <body>
         <h1 class="title">Login</h1>
 
-        <% if (locals.error) { %>
-        <p class="error"><%= error %></p>
+        <% if (locals.error || locals['2fa']) { %>
+        <p class="error"><%= error || 'You have 2FA enabled' %></p>
         <% } %>
 
+        <% if (locals['2fa']) { %>
+        <form action="/login/2fa" method="post">
+            <input
+                type="number"
+                name="token"
+                placeholder="123456"
+                class="input"
+            />
+        </form>
+        <% } else { %>
         <form action="/login" method="post">
             <input
                 type="email"
                 name="email"
                 placeholder="Email"
-                class="email"
+                class="input"
             />
             <input
                 type="password"
                 name="password"
                 placeholder="Password"
-                class="password"
+                class="input"
             />
             <button class="button">Login</button>
         </form>
+        <% } %>
     </body>
 </html>

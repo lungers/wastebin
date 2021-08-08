@@ -25,8 +25,7 @@ body {
 
 .title,
 .error,
-.email,
-.password {
+.input {
     margin-bottom: 1rem;
 }
 
@@ -34,8 +33,11 @@ body {
     font-family: 'Source Code Pro', monospace;
 }
 
-.email,
-.password {
+.error {
+    text-align: center;
+}
+
+.input {
     display: block;
     padding: 1rem;
     font-family: inherit;

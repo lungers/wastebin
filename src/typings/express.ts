@@ -9,6 +9,7 @@ declare global {
 
 declare module 'express-session' {
     interface SessionData {
+        pendingUserId: number;
         userId: number;
     }
 }

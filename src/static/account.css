@@ -1,0 +1,21 @@
+:root {
+    --primary: #ee4c4c;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: sans-serif;
+}
+
+.confirm-2fa {
+    display: none;
+}
+
+.qrcode {
+    width: 500px;
+}

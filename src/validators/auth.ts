@@ -24,6 +24,12 @@ export const loginValidators = [
         .withMessage('Password length must be between 8 and 128.'),
 ];
 
+export const login2FAValidators = [
+    body('token', 'Invalid token')
+        .exists({ checkFalsy: true, checkNull: true })
+        .isNumeric({ no_symbols: true }),
+];
+
 export const registerValidators = [
     body('email', 'Invalid email.')
         .exists({ checkFalsy: true, checkNull: true })
@@ -43,4 +49,10 @@ export const registerValidators = [
         .exists({ checkFalsy: true, checkNull: true })
         .isLength({ min: 8, max: 128 })
         .withMessage('Password length must be between 8 and 128.'),
+];
+
+export const confirm2FAValidators = [
+    body('token', 'Invalid token')
+        .exists({ checkFalsy: true, checkNull: true })
+        .isNumeric({ no_symbols: true }),
 ];

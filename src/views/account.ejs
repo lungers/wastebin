@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include('partials/head') %>
+        <meta content="#262626" name="theme-color" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="/s/account.css" />
+    </head>
+    <body>
+        <div class="container">
+            <h2>Two-Factor Authentication</h2>
+
+            <% if (user['2fa_enabled']) { %>
+            <p>2FA is already enabled</p>
+            <% } else { %>
+            <button class="enable-2fa">Enable 2FA</button>
+            
+            <form action="/account/2fa/confirm" method="POST" class="confirm-2fa">
+                <input
+                type="number"
+                name="token"
+                placeholder="123456"
+                />
+                <button class="confirm-2fa-code">Confirm</button>
+                <div class="qrcode"></div>
+            </div>
+            <% } %>
+        </div>
+            
+        <% if (!user['2fa_enabled']) { %>
+        <script src="/s/js/account.js"></script>
+        <% } %>
+    </body>
+</html>

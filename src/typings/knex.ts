@@ -2,6 +2,8 @@ export interface User {
     id: number;
     email: string;
     password: string;
+    '2fa_enabled': boolean;
+    '2fa_secret': string | null;
     created_at: Date;
     updated_at: Date;
 }
