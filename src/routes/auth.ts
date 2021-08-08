@@ -1,5 +1,6 @@
 import asyncHandler from 'express-async-handler';
 import { Router } from 'express';
+import env from '../env';
 
 import * as auth from '../handlers/auth';
 import { verify } from '../utils/verify';
@@ -18,7 +19,11 @@ router.get('/login', ensureLoggedIn(false, '/'), (req, res) => {
 });
 
 router.get('/register', ensureLoggedIn(false, '/'), (req, res) => {
-    res.render('register');
+    if (env.ENABLE_REGISTER) {
+        res.render('register');
+    } else {
+        res.send('New accounts are currently disabled');
+    }
 });
 
 router.get(
@@ -49,13 +54,15 @@ router.post(
     asyncHandler(auth.login2FA),
 );
 
-router.post(
-    '/register',
-    ensureLoggedIn(false, '/'),
-    registerValidators,
-    asyncHandler(verify),
-    asyncHandler(auth.register),
-);
+if (env.ENABLE_REGISTER) {
+    router.post(
+        '/register',
+        ensureLoggedIn(false, '/'),
+        registerValidators,
+        asyncHandler(verify),
+        asyncHandler(auth.register),
+    );
+}
 
 router.post(
     '/account/2fa/init',
