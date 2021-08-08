@@ -40,8 +40,13 @@ app.use(
 app.use(routes);
 
 app.use((error: Error | CustomError, req: any, res: any, next: any) => {
-    console.log(error);
-    res.status('statusCode' in error ? error.statusCode : 500).end(error.message);
+    if (!('statusCode' in error) || error.statusCode >= 500) {
+        console.error(error);
+    }
+
+    res.status('statusCode' in error ? error.statusCode : 500).end(
+        error.message,
+    );
 });
 
 app.listen(env.PORT, () => {
