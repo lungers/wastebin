@@ -12,7 +12,7 @@
         <h1 class="title">Login</h1>
 
         <% if (locals.error || locals['2fa']) { %>
-        <p class="error"><%= error || 'You have 2FA enabled' %></p>
+        <p class="error"><%= locals.error || 'You have 2FA enabled' %></p>
         <% } %>
 
         <% if (locals['2fa']) { %>
