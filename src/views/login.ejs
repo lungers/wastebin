@@ -2,16 +2,33 @@
 <html lang="en">
     <head>
         <%- include('partials/head', { title: 'login' }) %>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="/s/auth.css" />
     </head>
     <body>
+        <h1 class="title">Login</h1>
+
         <% if (locals.error) { %>
-        <h1><%= error %></h1>
+        <p class="error"><%= error %></p>
         <% } %>
 
         <form action="/login" method="post">
-            <input type="email" name="email" placeholder="Email" />
-            <input type="password" name="password" placeholder="Password" />
-            <button>Login</button>
+            <input
+                type="email"
+                name="email"
+                placeholder="Email"
+                class="email"
+            />
+            <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                class="password"
+            />
+            <button class="button">Login</button>
         </form>
     </body>
 </html>
