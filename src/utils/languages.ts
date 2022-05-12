@@ -14,6 +14,7 @@ const [extsByLang, langsByExt] = (() => {
         { extension: 'html', names: ['html'] },
         { extension: 'css', names: ['css'] },
         { extension: 'js', names: ['javascript', 'coffeescript'] },
+        { extension: 'ts', names: ['typescript'] },
         { extension: 'py', names: ['python'] },
         { extension: 'java', names: ['java'] },
         { extension: 'cs', names: ['csharp'] },
