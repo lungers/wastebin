@@ -2,10 +2,10 @@ if (process.argv[1].endsWith('/node_modules/.bin/knex')) {
     require('dotenv').config({ path: '../.env' });
 }
 
-import { Config } from 'knex';
+import { Knex } from 'knex';
 import env from './env';
 
-const knexConfig: Config = {
+const knexConfig: Knex.Config = {
     client: 'mysql',
     connection: {
         host: env.DB_HOST,

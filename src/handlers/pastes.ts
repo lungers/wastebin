@@ -2,7 +2,7 @@ import { Request, Response, Handler } from 'express';
 import cheerio from 'cheerio';
 import { Pastes } from '../db';
 import generateSlug from '../utils/generate-slug';
-import marked from 'marked';
+import { marked } from 'marked';
 import xss from 'xss';
 import hljs from 'highlight.js';
 import { minify } from 'html-minifier';
@@ -29,75 +29,80 @@ const renderPaste = (req: Request, res: Response, data: object) => {
     });
 };
 
-export const get = (redirectUrls = true): Handler => async (req, res) => {
-    const [hash, ext] = req.params.hash.split('.', 2);
-    const paste = await Pastes().where({ hash }).first();
+export const get =
+    (redirectUrls = true): Handler =>
+    async (req, res) => {
+        const [hash, ext] = req.params.hash.split('.', 2);
+        const paste = await Pastes().where({ hash }).first();
 
-    if (!paste) {
-        return res.status(404).render('404');
-    } else if (paste.is_url && redirectUrls) {
-        return res.redirect(paste.content);
-    }
-
-    switch (ext) {
-        case undefined: {
-            const highlightResult = hljs.highlightAuto(paste.content);
-            const detectedExt = getExtFromLang(highlightResult.language);
-            let redirect = `/${hash}.${detectedExt.extension}`;
-
-            res.redirect(redirectUrls ? redirect : `/v${redirect}`);
-            break;
+        if (!paste) {
+            return res.status(404).render('404');
+        } else if (paste.is_url && redirectUrls) {
+            return res.redirect(paste.content);
         }
 
-        case 'md':
-            res.render('paste', {
-                paste,
-                content: marked(xss(paste.content)),
-                markdown: true,
-            });
-            break;
+        switch (ext) {
+            case undefined: {
+                const highlightResult = hljs.highlightAuto(paste.content);
+                const detectedExt = getExtFromLang(highlightResult.language);
+                let redirect = `/${hash}.${detectedExt.extension}`;
 
-        default: {
-            const language = getLangFromExt(ext);
-            const highlightResult = hljs.highlight(paste.content, {
-                language: language.names[0],
-            });
+                res.redirect(redirectUrls ? redirect : `/v${redirect}`);
+                break;
+            }
 
-            const $ = cheerio.load(highlightResult.value);
-            $('body')
-                .children()
-                .each(function (_, child) {
-                    const $child = $(child);
-                    if (
-                        $child.children().length === 0 &&
-                        $child.text().includes('\n')
-                    ) {
-                        const text = $child.text();
-                        text.split('\n').forEach((line, index, lines) => {
-                            const $clone = $child.clone();
-                            $clone.text(
-                                line + (index !== lines.length - 1 ? '\n' : ''),
-                            );
-                            $clone.insertBefore($child);
-                        });
-                        $child.remove();
-                    }
+            case 'md':
+                res.render('paste', {
+                    paste,
+                    content: marked.parse(xss(paste.content)),
+                    markdown: true,
+                });
+                break;
+
+            default: {
+                const language = getLangFromExt(ext);
+                const highlightResult = hljs.highlight(paste.content, {
+                    language: language.names[0],
                 });
 
-            const { content, lineNumbers } = addLineNumbers(
-                $('body').html() || highlightResult.value,
-            );
+                const $ = cheerio.load(highlightResult.value);
+                $('body')
+                    .children()
+                    .each(function (_, child) {
+                        const $child = $(child);
+                        if (
+                            $child.children().length === 0 &&
+                            $child.text().includes('\n')
+                        ) {
+                            const text = $child.text();
+                            text.split('\n').forEach((line, index, lines) => {
+                                const $clone = $child.clone();
+                                $clone.text(
+                                    line +
+                                        (index !== lines.length - 1
+                                            ? '\n'
+                                            : ''),
+                                );
+                                $clone.insertBefore($child);
+                            });
+                            $child.remove();
+                        }
+                    });
 
-            renderPaste(req, res, {
-                paste,
-                language,
-                content,
-                lineNumbers,
-            });
-            break;
+                const { content, lineNumbers } = addLineNumbers(
+                    $('body').html() || highlightResult.value,
+                );
+
+                renderPaste(req, res, {
+                    paste,
+                    language,
+                    content,
+                    lineNumbers,
+                });
+                break;
+            }
         }
-    }
-};
+    };
 
 export const raw: Handler = async (req, res) => {
     const [hash, ext] = req.params.hash.split('.', 2);

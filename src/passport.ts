@@ -21,7 +21,7 @@ passport.use(
                 const user = await Users().where('api_key', apiKey).first();
                 return done(null, user ?? false);
             } catch (error) {
-                return done(error);
+                return done(error as Error);
             }
         },
     ),
