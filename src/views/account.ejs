@@ -18,7 +18,7 @@
             <p>2FA is already enabled</p>
             <% } else { %>
             <button class="enable-2fa">Enable 2FA</button>
-            
+
             <form action="/account/2fa/confirm" method="POST" class="confirm-2fa">
                 <input
                 type="number"
@@ -31,8 +31,20 @@
             <% } %>
         </div>
 
+        <div class="container">
+            <h2>Pastes</h2>
+
+            <div class="pastes">
+                <% pastes.forEach(paste => { %>
+                    <a href="<%= paste.is_url ? '/v' : '' %>/<%= paste.hash %>">
+                        <%= paste.content.slice(0, 50) %><%= paste.content.length > 50 ? '…' : '' %>
+                    </a>
+                <% }); %>
+            </div>
+        </div>
+
         <% if (!user['2fa_enabled']) { %>
-        <script src="/s/js/account.js"></script>
+            <script src="/s/js/account.js"></script>
         <% } %>
     </body>
 </html>

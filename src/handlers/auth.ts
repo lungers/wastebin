@@ -1,5 +1,5 @@
 import { Handler } from 'express';
-import { Users } from '../db';
+import { Pastes, Users } from '../db';
 import bcrypt from 'bcrypt';
 import { CustomError } from '../utils/custom-error';
 import { authenticator } from 'otplib';
@@ -8,6 +8,7 @@ import qrcode from 'qrcode';
 export const accountInfo: Handler = async (req, res) => {
     res.render('account', {
         user: await Users().where('id', req.session.userId).first(),
+        pastes: await Pastes().where('user_id', req.session.userId).limit(10),
     });
 };
 

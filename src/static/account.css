@@ -19,3 +19,8 @@ body {
 .qrcode {
     width: 500px;
 }
+
+.pastes {
+    display: flex;
+    flex-direction: column;
+}
