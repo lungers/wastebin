@@ -11,9 +11,30 @@ export const editPasteValidator = [
             const [realHash, ext] = hash.split('.', 2);
             const paste = await Pastes().where('hash', realHash).first();
 
-            if (!paste || !req.session || paste.user_id !== req.session.userId) {
+            if (
+                !paste ||
+                !req.session ||
+                paste.user_id !== req.session.userId
+            ) {
                 return Promise.reject();
             }
         })
-        .withMessage('This isn\'t for you'),
+        .withMessage("This isn't for you"),
+];
+
+export const deletePasteValidator = [
+    param('hash', 'Hash is required')
+        .custom(async (hash, { req }) => {
+            const [realHash, ext] = hash.split('.', 2);
+            const paste = await Pastes().where('hash', realHash).first();
+
+            if (
+                !paste ||
+                !req.session ||
+                paste.user_id !== req.session.userId
+            ) {
+                return Promise.reject();
+            }
+        })
+        .withMessage("This isn't for you"),
 ];

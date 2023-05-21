@@ -164,3 +164,11 @@ export const edit: Handler = async (req, res) => {
 
     res.redirect(`/${hash}`);
 };
+
+export const delete_: Handler = async (req, res) => {
+    const { hash } = req.params;
+
+    await Pastes().where({ hash }).delete();
+
+    res.status(200).end();
+};

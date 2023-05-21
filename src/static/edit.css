@@ -31,7 +31,8 @@ header {
     text-decoration: none;
 }
 
-.save {
+.save,
+.delete {
     padding: 0.5rem 1rem;
     color: #ffffff;
     background: transparent;
@@ -46,7 +47,9 @@ header {
 }
 
 .save:hover,
-.save:focus {
+.save:focus,
+.delete:hover,
+.delete:focus {
     background: var(--primary);
     outline: none;
 }

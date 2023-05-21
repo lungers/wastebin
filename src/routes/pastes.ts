@@ -5,7 +5,11 @@ import cors from 'cors';
 import * as pastes from '../handlers/pastes';
 import { verify } from '../utils/verify';
 import ensureLoggedIn from '../utils/ensure-logged-in';
-import { newPastesValidator, editPasteValidator } from '../validators/pastes';
+import {
+    newPastesValidator,
+    editPasteValidator,
+    deletePasteValidator,
+} from '../validators/pastes';
 
 const router = Router();
 
@@ -34,6 +38,14 @@ router.post(
     editPasteValidator,
     asyncHandler(verify),
     asyncHandler(pastes.edit),
+);
+
+router.delete(
+    '/delete/:hash',
+    ensureLoggedIn(true, '/login'),
+    deletePasteValidator,
+    asyncHandler(verify),
+    asyncHandler(pastes.delete_),
 );
 
 export default router;

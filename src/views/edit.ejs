@@ -8,18 +8,45 @@
             rel="stylesheet"
         />
         <link rel="stylesheet" href="/s/edit.css" />
+        <script src="/s/js/edit.js" defer></script>
     </head>
     <body>
         <header>
             <a href="/" class="logo">
                 <h1>waste<span class="logo-red">bin</span></h1>
             </a>
-            <button type="submit" form="edit" class="save" tabindex="2">Save</button>
+            <div>
+                <button type="submit" form="edit" class="save" tabindex="2">
+                    Save
+                </button>
+                <button
+                    class="delete"
+                    tabindex="3"
+                    data-hash="<%= paste.hash %>"
+                >
+                    Delete
+                </button>
+            </div>
         </header>
 
-        <form action="/edit/<%= paste.hash %>" method="post" id="edit" class="content-container">
-            <textarea name="content" class="content" spellcheck="false" tabindex="1" autofocus="" placeholder="some code here" cols="30" rows="10"
-                ><%= paste.content %></textarea>
+        <form
+            action="/edit/<%= paste.hash %>"
+            method="post"
+            id="edit"
+            class="content-container"
+        >
+            <textarea
+                name="content"
+                class="content"
+                spellcheck="false"
+                tabindex="1"
+                autofocus=""
+                placeholder="some code here"
+                cols="30"
+                rows="10"
+            >
+<%= paste.content %></textarea
+            >
         </form>
     </body>
 </html>
