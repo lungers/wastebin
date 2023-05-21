@@ -22,6 +22,8 @@ const [extsByLang, langsByExt] = (() => {
         { extension: 'sh', names: ['bash'] },
         { extension: 'md', names: ['markdown'] },
         { extension: 'diff', names: ['diff'] },
+        { extension: 'yml', names: ['yml', 'yaml'] },
+        { extension: 'yaml', names: ['yml', 'yaml'] },
         plainTextLang,
     ];
 
