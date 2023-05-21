@@ -36,9 +36,12 @@
 
             <div class="pastes">
                 <% pastes.forEach(paste => { %>
-                    <a href="<%= paste.is_url ? '/v' : '' %>/<%= paste.hash %>">
-                        <%= paste.content.slice(0, 50) %><%= paste.content.length > 50 ? '…' : '' %>
-                    </a>
+                    <div class="paste">
+                        <a href="<%= paste.is_url ? '/v' : '' %>/<%= paste.hash %>">
+                            <%= paste.content.slice(0, 50) %><%= paste.content.length > 50 ? '…' : '' %>
+                        </a>
+                        <a href="/e/<%= paste.hash %>">edit</a>
+                    </div>
                 <% }); %>
             </div>
         </div>

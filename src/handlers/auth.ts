@@ -8,7 +8,7 @@ import qrcode from 'qrcode';
 export const accountInfo: Handler = async (req, res) => {
     res.render('account', {
         user: await Users().where('id', req.session.userId).first(),
-        pastes: await Pastes().where('user_id', req.session.userId).limit(10),
+        pastes: await Pastes().where('user_id', req.session.userId).limit(100),
     });
 };
 
