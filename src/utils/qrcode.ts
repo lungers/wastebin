@@ -89,6 +89,10 @@ const qrModulesDataRender = (
                 })"><use xlink:href="#${moduleStyle}"/></g>`;
             }
 
+            if (moduleStyle) {
+                usedDefs.add(moduleStyle);
+            }
+
             if (!prevValue && nextValue && prevValueTRow && !nextValueBRow) {
                 moduleStyle = DefValues.rt;
             } else if (
