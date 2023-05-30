@@ -3,7 +3,7 @@ import { Pastes, Users } from '../db';
 import bcrypt from 'bcrypt';
 import { CustomError } from '../utils/custom-error';
 import { authenticator } from 'otplib';
-import qrcode from 'qrcode';
+import qrcode from '../utils/qrcode';
 
 export const accountInfo: Handler = async (req, res) => {
     res.render('account', {
@@ -129,9 +129,8 @@ export const init2FA: Handler = async (req, res) => {
         result: {
             secret,
             qr_code: {
-                svg: await qrcode.toString(
+                svg: qrcode(
                     authenticator.keyuri(user.email, 'wastebin', secret),
-                    { type: 'svg' },
                 ),
             },
         },

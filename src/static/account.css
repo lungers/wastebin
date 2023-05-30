@@ -17,8 +17,9 @@ body {
 }
 
 .qrcode {
+    padding: 1rem;
     width: 500px;
-    max-width: 100%;
+    max-width: 100vmin;
 }
 
 .pastes {
