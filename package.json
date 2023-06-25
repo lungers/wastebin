@@ -12,7 +12,7 @@
         "type": "git",
         "url": "git+https://github.com/lungers/wastebin.git"
     },
-    "author": "Andrew Lane <contact@lungers.com>",
+    "author": "Avrumy <contact@lungers.com>",
     "license": "MIT",
     "bugs": {
         "url": "https://github.com/lungers/wastebin/issues"
