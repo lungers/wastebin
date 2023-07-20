@@ -1,11 +1,11 @@
-import path from 'path';
-import helmet from 'helmet';
-import express from 'express';
-import passport from 'passport';
-import session from 'express-session';
 import knexSessionStore from 'connect-session-knex';
-import env from './env';
+import express from 'express';
+import session from 'express-session';
+import helmet from 'helmet';
+import passport from 'passport';
+import path from 'path';
 import db from './db';
+import env from './env';
 import { CustomError } from './utils/custom-error';
 
 import './passport';

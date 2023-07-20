@@ -1,5 +1,4 @@
-import { SessionData } from 'express-session';
-import { User as IUser, Paste } from './knex';
+import { User as IUser } from './knex';
 
 declare global {
     namespace Express {

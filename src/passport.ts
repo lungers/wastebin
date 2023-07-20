@@ -1,7 +1,7 @@
 // TODO:
+import passport from 'passport';
 // @ts-expect-error passport-localapikey-update doesn't have typings
 import { Strategy as LocalAPIKeyStrategy } from 'passport-localapikey-update';
-import passport from 'passport';
 import { Users } from './db';
 import { User } from './typings/knex';
 

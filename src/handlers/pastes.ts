@@ -1,16 +1,16 @@
-import { Request, Response, Handler } from 'express';
 import cheerio from 'cheerio';
-import { Pastes } from '../db';
-import generateSlug from '../utils/generate-slug';
+import { Handler, Request, Response } from 'express';
+import hljs from 'highlight.js';
+import { minify } from 'html-minifier';
 import { marked } from 'marked';
 import { gfmHeadingId } from 'marked-gfm-heading-id';
 import { markedHighlight } from 'marked-highlight';
 import xss from 'xss';
-import hljs from 'highlight.js';
-import { minify } from 'html-minifier';
+import { Pastes } from '../db';
+import generateSlug from '../utils/generate-slug';
 import isUrl from '../utils/is-url';
-import addLineNumbers from '../utils/line-numbers';
 import { languages } from '../utils/languages';
+import addLineNumbers from '../utils/line-numbers';
 
 marked.use(gfmHeadingId());
 marked.use(

@@ -1,14 +1,13 @@
-import asyncHandler from 'express-async-handler';
-import { Router } from 'express';
 import cors from 'cors';
-
+import { Router } from 'express';
+import asyncHandler from 'express-async-handler';
 import * as pastes from '../handlers/pastes';
-import { verify } from '../utils/verify';
 import ensureLoggedIn from '../utils/ensure-logged-in';
+import { verify } from '../utils/verify';
 import {
-    newPastesValidator,
-    editPasteValidator,
     deletePasteValidator,
+    editPasteValidator,
+    newPastesValidator,
 } from '../validators/pastes';
 
 const router = Router();

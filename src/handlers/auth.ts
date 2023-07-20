@@ -1,8 +1,8 @@
-import { Handler } from 'express';
-import { Pastes, Users } from '../db';
 import bcrypt from 'bcrypt';
-import { CustomError } from '../utils/custom-error';
+import { Handler } from 'express';
 import { authenticator } from 'otplib';
+import { Pastes, Users } from '../db';
+import { CustomError } from '../utils/custom-error';
 import qrcode from '../utils/qrcode';
 
 export const accountInfo: Handler = async (req, res) => {

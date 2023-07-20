@@ -1,16 +1,15 @@
-import asyncHandler from 'express-async-handler';
 import { Router } from 'express';
+import asyncHandler from 'express-async-handler';
 import env from '../env';
-
 import * as auth from '../handlers/auth';
+import ensureLoggedIn from '../utils/ensure-logged-in';
 import { verify } from '../utils/verify';
 import {
-    loginValidators,
-    registerValidators,
     confirm2FAValidators,
     login2FAValidators,
+    loginValidators,
+    registerValidators,
 } from '../validators/auth';
-import ensureLoggedIn from '../utils/ensure-logged-in';
 
 const router = Router();
 
