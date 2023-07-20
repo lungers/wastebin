@@ -51,13 +51,19 @@ export const get =
                 break;
             }
 
-            case 'md':
+            case 'md': {
+                const sanitizedContent = xss(paste.content).replace(
+                    /^&gt; /gm,
+                    '> ',
+                );
+
                 res.render('paste', {
                     paste,
-                    content: marked.parse(xss(paste.content)),
+                    content: marked.parse(sanitizedContent),
                     markdown: true,
                 });
                 break;
+            }
 
             default: {
                 const language = getLangFromExt(ext);
