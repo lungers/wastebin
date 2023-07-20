@@ -4,14 +4,22 @@ import { Pastes } from '../db';
 import generateSlug from '../utils/generate-slug';
 import { marked } from 'marked';
 import { gfmHeadingId } from 'marked-gfm-heading-id';
+import { markedHighlight } from 'marked-highlight';
 import xss from 'xss';
 import hljs from 'highlight.js';
 import { minify } from 'html-minifier';
 import isUrl from '../utils/is-url';
 import addLineNumbers from '../utils/line-numbers';
-import { getExtFromLang, getLangFromExt } from '../utils/languages';
+import { languages } from '../utils/languages';
 
 marked.use(gfmHeadingId());
+marked.use(
+    markedHighlight({
+        highlight(code, language) {
+            return hljs.highlight(code, { language }).value;
+        },
+    }),
+);
 
 export const index: Handler = (req, res) => {
     res.render('index');
@@ -46,9 +54,11 @@ export const get =
 
         switch (ext) {
             case undefined: {
-                const highlightResult = hljs.highlightAuto(paste.content);
-                const detectedExt = getExtFromLang(highlightResult.language);
-                let redirect = `/${hash}.${detectedExt.extension}`;
+                const highlightResult = hljs.highlightAuto(
+                    paste.content,
+                    languages,
+                );
+                let redirect = `/${hash}.${highlightResult.language || 'txt'}`;
 
                 res.redirect(redirectUrls ? redirect : `/v${redirect}`);
                 break;
@@ -71,9 +81,8 @@ export const get =
             }
 
             default: {
-                const language = getLangFromExt(ext);
                 const highlightResult = hljs.highlight(paste.content, {
-                    language: language.names[0],
+                    language: ext,
                 });
 
                 const $ = cheerio.load(highlightResult.value);
@@ -106,7 +115,7 @@ export const get =
 
                 renderPaste(req, res, {
                     paste,
-                    language,
+                    ext,
                     content,
                     lineNumbers,
                 });
