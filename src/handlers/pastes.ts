@@ -3,12 +3,15 @@ import cheerio from 'cheerio';
 import { Pastes } from '../db';
 import generateSlug from '../utils/generate-slug';
 import { marked } from 'marked';
+import { gfmHeadingId } from 'marked-gfm-heading-id';
 import xss from 'xss';
 import hljs from 'highlight.js';
 import { minify } from 'html-minifier';
 import isUrl from '../utils/is-url';
 import addLineNumbers from '../utils/line-numbers';
 import { getExtFromLang, getLangFromExt } from '../utils/languages';
+
+marked.use(gfmHeadingId());
 
 export const index: Handler = (req, res) => {
     res.render('index');
@@ -59,7 +62,9 @@ export const get =
 
                 res.render('paste', {
                     paste,
-                    content: marked.parse(sanitizedContent),
+                    content: marked.parse(sanitizedContent, {
+                        mangle: false,
+                    }),
                     markdown: true,
                 });
                 break;
