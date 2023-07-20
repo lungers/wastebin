@@ -8,10 +8,12 @@
             rel="stylesheet"
         />
         <link rel="stylesheet" href="/s/paste.css" />
+        <link rel="stylesheet" href="/s/hljs.css" />
         <% if (locals.markdown) { %>
         <link rel="stylesheet" href="/s/markdown.css" />
+        <% } else { %>
+        <link rel="stylesheet" href="/s/code.css" />
         <% } %>
-        <link rel="stylesheet" href="/s/hljs.css" />
     </head>
     <body>
         <header>
