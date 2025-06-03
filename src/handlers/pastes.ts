@@ -1,4 +1,4 @@
-import cheerio from 'cheerio';
+import * as cheerio from 'cheerio';
 import { Handler, Request, Response } from 'express';
 import hljs from 'highlight.js';
 import { minify } from 'html-minifier';
@@ -72,9 +72,7 @@ export const get =
 
                 res.render('paste', {
                     paste,
-                    content: marked.parse(sanitizedContent, {
-                        mangle: false,
-                    }),
+                    content: marked.parse(sanitizedContent),
                     markdown: true,
                 });
                 break;

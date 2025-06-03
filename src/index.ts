@@ -1,4 +1,4 @@
-import knexSessionStore from 'connect-session-knex';
+import { ConnectSessionKnexStore } from 'connect-session-knex';
 import express from 'express';
 import session from 'express-session';
 import helmet from 'helmet';
@@ -12,7 +12,6 @@ import './passport';
 import routes from './routes';
 
 const app = express();
-const KnexSessionStore = knexSessionStore(session);
 
 app.set('trust proxy', env.TRUST_PROXY);
 app.set('views', path.join(__dirname, 'views'));
@@ -34,7 +33,7 @@ app.use(
         rolling: true,
         resave: false,
         saveUninitialized: false,
-        store: new KnexSessionStore({ knex: db }),
+        store: new ConnectSessionKnexStore({ knex: db }),
     }),
 );
 
