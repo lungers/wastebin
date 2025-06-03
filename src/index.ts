@@ -28,9 +28,10 @@ app.use(
         secret: env.SESSION_SECRET,
         cookie: {
             httpOnly: true,
-            maxAge: 604_800_000, // 7 days in milliseconds
+            maxAge: 31_536_000_000, // 1 year in milliseconds
             secure: env.isProd,
         },
+        rolling: true,
         resave: false,
         saveUninitialized: false,
         store: new KnexSessionStore({ knex: db }),
