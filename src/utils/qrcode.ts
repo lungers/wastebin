@@ -201,7 +201,7 @@ const removeModules = (matrix: qrcode.BitMatrix) => {
 const render = (qrData: qrcode.QRCode) => {
     removeModules(qrData.modules);
 
-    const color = '#2B3544';
+    const color = '#d0d7e2';
     const moduleSize = 97;
     const { data, size } = qrData.modules;
     const { svg, usedDefs } = qrModulesDataRender(data, size, moduleSize);

@@ -6,12 +6,27 @@ import { CustomError } from '../utils/custom-error';
 import qrcode from '../utils/qrcode';
 
 export const accountInfo: Handler = async (req, res) => {
-    res.render('account', {
-        user: await Users().where('id', req.session.userId).first(),
-        pastes: await Pastes()
+    const [user, pastes] = await Promise.all([
+        await Users().where('id', req.session.userId).first(),
+        await Pastes()
             .where('user_id', req.session.userId)
             .orderBy('created_at', 'desc')
             .limit(100),
+    ]);
+
+    const errors: Record<string, string | null> = {
+        'invalid-2fa-code': user!['2fa_enabled']
+            ? null
+            : 'Your 2FA code is invalid, please try again.',
+    };
+
+    res.render('account', {
+        '2faError':
+            typeof req.query.error === 'string'
+                ? errors[req.query.error] || null
+                : null,
+        user,
+        pastes,
     });
 };
 
@@ -160,6 +175,6 @@ export const confirm2FA: Handler = async (req, res) => {
             '2fa_secret': null,
         });
 
-        res.redirect('/account');
+        res.redirect('/account?error=invalid-2fa-code');
     }
 };

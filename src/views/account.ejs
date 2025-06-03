@@ -12,29 +12,42 @@
     </head>
     <body>
         <div class="container">
-            <h2>Two-Factor Authentication</h2>
+            <h2 class="title-2fa">Two-Factor Authentication</h2>
+
+            <% if (locals['2faError']) { %>
+                <p class="error"><%= locals['2faError'] %></p>
+            <% } %>
 
             <% if (user['2fa_enabled']) { %>
-            <p>2FA is already enabled</p>
+                <p>2FA is enabled.</p>
             <% } else { %>
-            <button class="enable-2fa">Enable 2FA</button>
+                <button class="button enable-2fa">Enable 2FA</button>
 
-            <form action="/account/2fa/confirm" method="POST" class="confirm-2fa">
-                <input
-                type="number"
-                name="token"
-                placeholder="123456"
-                />
-                <button class="confirm-2fa-code">Confirm</button>
-                <div class="qrcode"></div>
-            </div>
+                <form
+                    action="/account/2fa/confirm"
+                    method="POST"
+                    class="confirm-2fa"
+                >
+                    <input
+                        type="number"
+                        name="token"
+                        placeholder="123456"
+                        class="input token-input"
+                    />
+                    <button class="button confirm-2fa-code">Confirm</button>
+                    <div class="qrcode"></div>
+                </form>
             <% } %>
         </div>
 
-        <div class="container">
-            <h2>Pastes</h2>
+        <div class="container container-pastes">
+            <h2 class="pastes-title">Pastes</h2>
 
             <div class="pastes">
+                <% if (pastes.length === 0) { %>
+                    <p>You don't have any pastes.</p>
+                <% } %>
+
                 <% pastes.forEach(paste => { %>
                     <div class="paste">
                         <a href="<%= paste.is_url ? '/v' : '' %>/<%= paste.hash %>">
@@ -46,8 +59,6 @@
             </div>
         </div>
 
-        <% if (!user['2fa_enabled']) { %>
-            <script src="/s/js/account.js"></script>
-        <% } %>
+        <script src="/s/js/account.js"></script>
     </body>
 </html>

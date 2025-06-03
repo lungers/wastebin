@@ -3,6 +3,17 @@ const confirm2FAContainer = document.querySelector('.confirm-2fa');
 const confirm2FAButton = document.querySelector('.confirm-2fa-code');
 const qrCodeContainer = document.querySelector('.qrcode');
 
+// remove the `error` query params
+const params = new URLSearchParams(location.search.slice(1));
+if (params.has('error')) {
+    params.delete('error');
+    history.replaceState(
+        null,
+        '',
+        location.pathname + (params.size > 0 ? '?' + params.toString() : ''),
+    );
+}
+
 enable2FAButton.addEventListener('click', async () => {
     const request = await fetch('/account/2fa/init', {
         method: 'POST',
