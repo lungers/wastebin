@@ -9,7 +9,7 @@ const addLineNumbers = (content: string) => {
     const numbers = [];
 
     for (let i = 0; i < lines.length; i++) {
-        const line = lines[i].length > 0 ? lines[i] : ' ';
+        const line = lines[i].length > 0 ? lines[i] : '<br>';
         const lineNumber = i + 1;
 
         modifiedLines.push(`<div id="LC${lineNumber}" class="line">`, line, `</div>`);
