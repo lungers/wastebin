@@ -1,4 +1,5 @@
 import { ConnectSessionKnexStore } from 'connect-session-knex';
+import { randomBytes } from 'crypto';
 import express from 'express';
 import session from 'express-session';
 import helmet from 'helmet';
@@ -17,7 +18,23 @@ app.set('trust proxy', env.TRUST_PROXY);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.use(helmet());
+app.use((req, res, next) => {
+    res.locals.cspNonce = randomBytes(32).toString('hex');
+    next();
+});
+
+app.use(
+    helmet({
+        contentSecurityPolicy: {
+            directives: {
+                scriptSrc: [
+                    "'self'",
+                    (req, res: any) => `'nonce-${res.locals.cspNonce}'`,
+                ],
+            },
+        },
+    }),
+);
 app.use('/s', express.static(path.join(__dirname, 'static')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

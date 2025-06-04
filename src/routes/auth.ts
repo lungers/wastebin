@@ -14,7 +14,9 @@ import {
 const router = Router();
 
 router.get('/login', ensureLoggedIn(false, '/'), (req, res) => {
-    res.render('login');
+    res.render('login', {
+        nonce: res.locals.cspNonce,
+    });
 });
 
 router.get('/register', ensureLoggedIn(false, '/'), (req, res) => {
@@ -49,8 +51,20 @@ router.post(
     '/login/2fa',
     ensureLoggedIn(false, '/'),
     login2FAValidators,
-    asyncHandler(verify),
     asyncHandler(auth.login2FA),
+);
+
+// login with passkey
+router.get(
+    '/account/passkeys/auth-options',
+    ensureLoggedIn(false, '/login'),
+    asyncHandler(auth.getPasskeyOptions),
+);
+
+router.post(
+    '/account/passkeys/verify-auth',
+    ensureLoggedIn(false, '/login'),
+    asyncHandler(auth.verifyPasskeyAuth),
 );
 
 if (env.ENABLE_REGISTER) {
@@ -73,8 +87,25 @@ router.post(
     '/account/2fa/confirm',
     ensureLoggedIn(true, '/login'),
     confirm2FAValidators,
-    asyncHandler(verify),
     asyncHandler(auth.confirm2FA),
+);
+
+router.post(
+    '/account/passkeys/init',
+    ensureLoggedIn(true, '/login'),
+    asyncHandler(auth.initPasskey),
+);
+
+router.post(
+    '/account/passkeys/verify-init',
+    ensureLoggedIn(true, '/login'),
+    asyncHandler(auth.verifyPasskeyInit),
+);
+
+router.post(
+    '/account/passkeys/delete/:id',
+    ensureLoggedIn(true, '/login'),
+    asyncHandler(auth.deletePasskey),
 );
 
 export default router;

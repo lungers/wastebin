@@ -16,31 +16,39 @@
         <% } %>
 
         <% if (locals['2fa']) { %>
-        <form action="/login/2fa" method="post">
-            <input
-                type="number"
-                name="token"
-                placeholder="123456"
-                class="input"
-                autofocus
-            />
-        </form>
+            <form action="/login/2fa" method="post">
+                <input
+                    type="number"
+                    name="token"
+                    placeholder="123456"
+                    class="input"
+                    autofocus
+                />
+            </form>
         <% } else { %>
-        <form action="/login" method="post">
-            <input
-                type="email"
-                name="email"
-                placeholder="Email"
-                class="input"
-            />
-            <input
-                type="password"
-                name="password"
-                placeholder="Password"
-                class="input"
-            />
-            <button class="button">Login</button>
-        </form>
+            <form action="/login" method="post">
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="Email"
+                    class="input"
+                    autocomplete="webauthn"
+                />
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    class="input"
+                />
+
+                <div class="buttons">
+                    <button class="button">Login</button>
+                    <button type="button" class="button login-with-passkey">Login with Passkey</button>
+                </div>
+            </form>
         <% } %>
+
+        <script src="https://unpkg.com/@simplewebauthn/browser/dist/bundle/index.es5.umd.min.js" nonce="<%= nonce %>"></script>
+        <script src="/s/js/login.js"></script>
     </body>
 </html>

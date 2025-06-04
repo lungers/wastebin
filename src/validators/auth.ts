@@ -25,7 +25,7 @@ export const loginValidators = [
 ];
 
 export const login2FAValidators = [
-    body('token', 'Invalid token')
+    body('token', 'Invalid 2FA code')
         .exists({ checkFalsy: true, checkNull: true })
         .isNumeric({ no_symbols: true }),
 ];
@@ -52,7 +52,7 @@ export const registerValidators = [
 ];
 
 export const confirm2FAValidators = [
-    body('token', 'Invalid token')
+    body('token', 'Invalid 2FA code')
         .exists({ checkFalsy: true, checkNull: true })
         .isNumeric({ no_symbols: true }),
 ];

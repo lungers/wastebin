@@ -14,4 +14,8 @@ export default cleanEnv(process.env, {
     DB_DATABASE: str(),
     DB_PASSWORD: str(),
     DB_PORT: port({ default: 3306 }),
+
+    RP_NAME: str(),
+    RP_ID: str(),
+    RP_ORIGIN: str(),
 });

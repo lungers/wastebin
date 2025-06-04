@@ -20,8 +20,14 @@ body {
 
 .error,
 .title-2fa,
+.passkeys-title,
 .pastes-title {
     margin-bottom: 1rem;
+}
+
+.error {
+    color: var(--primary);
+    font-weight: bold;
 }
 
 .input {
@@ -64,6 +70,29 @@ body {
 
 .confirm-2fa-code {
     margin-bottom: 1rem;
+}
+
+.add-passkey {
+    margin-bottom: 1rem;
+}
+
+.passkeys {
+    list-style-position: inside;
+}
+
+.delete-passkey-form {
+    display: inline-block;
+}
+
+.delete-passkey {
+    width: 24px;
+    height: 24px;
+    padding: 0.25rem;
+    vertical-align: middle;
+    background-color: transparent;
+    color: white;
+    border: 0;
+    cursor: pointer;
 }
 
 .qrcode {
